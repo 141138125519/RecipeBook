@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using RecipeBook.Models;
 
@@ -7,6 +8,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<RecipeBookContext>();
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1,0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader(),
+                                                        new HeaderApiVersionReader("x-api-version"),
+                                                        new MediaTypeApiVersionReader("x-api-verison"));
+});
 
 builder.Services.AddSwaggerGen(options =>
 {

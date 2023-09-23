@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using RecipeBook.Models;
 
-namespace RecipeBook.Controllers
+namespace RecipeBook.Controllers.v1
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class RecipeController : ControllerBase
     {
         private readonly RecipeBookContext _context;
