@@ -19,9 +19,33 @@ namespace RecipeBook.Controllers
             _logger.LogInformation("\n Recipe Controller Started: {0}\n", DateTime.Now);
         }
 
-        [HttpGet("")]
-        public IActionResult Get()
+        [HttpGet("recipe/{id}")]
+        public IActionResult GetRecipeById(int id)
         {
+            Recipe? recipe = _context.Find<Recipe>(id);
+            if (recipe == null)
+            {
+                return NotFound(("No recipe with id: {0}", id));
+            }
+
+            return Ok(recipe);
+        }
+
+        [HttpPost("")]
+        public IActionResult Post([FromBody] Recipe recipe)
+        {
+            if (recipe == null)
+            {
+                return BadRequest();
+            }
+            if (_context.Find<Recipe>(recipe.Id) != null)
+            {
+                return BadRequest("Recipe Exists");
+            }
+            _context.Add(recipe);
+            _context.SaveChanges();
+            _context.Dispose();
+
             return Ok();
         }
     }
