@@ -27,6 +27,7 @@ namespace RecipeBook.Controllers
             {
                 return NotFound(("No recipe with id: {0}", id));
             }
+            _context.Dispose();
 
             return Ok(recipe);
         }
