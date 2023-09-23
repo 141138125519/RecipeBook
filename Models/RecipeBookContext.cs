@@ -18,7 +18,7 @@ namespace RecipeBook.Models
 
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            DbPath = System.IO.Path.Join(path, "recipeBook.db");
+            DbPath = Path.Join(path, "recipeBook.db");
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
