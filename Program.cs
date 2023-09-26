@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
+using RecipeBook;
 using RecipeBook.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,15 +27,8 @@ builder.Services.AddVersionedApiExplorer(setup =>
     setup.SubstituteApiVersionInUrl = true;
 });
 
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "Recipe Book API",
-        Description = "W.I.P"
-    });
-});
+builder.Services.AddSwaggerGen();
+builder.Services.ConfigureOptions<CustomSwaggerOptions>();
 
 var app = builder.Build();
 
