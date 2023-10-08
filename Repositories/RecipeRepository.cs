@@ -13,7 +13,13 @@ namespace RecipeBook.Repositories
             _context = context;
         }
 
-        public Recipe? GetRecipeIfExists(int id)
+        public List<Recipe> GetAll()
+        {
+            var allRecipes = _context.Recipes.ToList();
+            return allRecipes;
+        }
+
+        public Recipe? GetIfExists(int id)
         {
             var recipe = _context.Find<Recipe>(id);
             return recipe;
@@ -21,7 +27,7 @@ namespace RecipeBook.Repositories
 
         public void AddRecipe(Recipe recipe)
         {
-            _context.Add(recipe);
+            _context.Recipes.Add(recipe);
             _context.SaveChanges();
         }
     }

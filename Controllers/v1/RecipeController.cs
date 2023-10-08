@@ -23,28 +23,33 @@ namespace RecipeBook.Controllers.v1
             _logger.LogInformation("\n Recipe Controller Started: {0}\n", DateTime.Now);
         }
 
+        [HttpGet("recipe/all")]
+        public IActionResult Get()
+        {
+            return Ok(_recipeRepository.GetAll());
+        }
+
         [HttpGet("recipe/{id}")]
         public IActionResult GetRecipeById(int id)
         {
-            Recipe? recipe = _recipeRepository.GetRecipeIfExists(id);
+            Recipe? recipe = _recipeRepository.GetIfExists(id);
 
             if (recipe == null)
             {
                 return NotFound(("No recipe with id: {0}", id));
             }
-            _context.Dispose();
 
             return Ok(recipe);
         }
 
-        [HttpPost("")]
+        [HttpPost]
         public IActionResult Post([FromBody] Recipe recipe)
         {
             if (recipe == null)
             {
                 return BadRequest();
             }
-            if (_recipeRepository.GetRecipeIfExists(recipe.Id) != null)
+            if (_recipeRepository.GetIfExists(recipe.Id) != null)
             {
                 return BadRequest("Recipe Exists");
             }

@@ -4,7 +4,8 @@ namespace RecipeBook.Repositories
 {
     public interface IRecipeRepository
     {
-        public Recipe? GetRecipeIfExists(int id);
+        public List<Recipe> GetAll();
+        public Recipe? GetIfExists(int id);
         public void AddRecipe(Recipe recipe);
     }
 }
