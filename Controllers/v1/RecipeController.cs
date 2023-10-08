@@ -23,13 +23,13 @@ namespace RecipeBook.Controllers.v1
             _logger.LogInformation("\n Recipe Controller Started: {0}\n", DateTime.Now);
         }
 
-        [HttpGet("recipe/all")]
+        [HttpGet("all")]
         public IActionResult Get()
         {
             return Ok(_recipeRepository.GetAll());
         }
 
-        [HttpGet("recipe/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetRecipeById(int id)
         {
             Recipe? recipe = _recipeRepository.GetIfExists(id);
@@ -43,7 +43,7 @@ namespace RecipeBook.Controllers.v1
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Recipe recipe)
+        public IActionResult AddRecipe([FromBody] Recipe recipe)
         {
             if (recipe == null)
             {
@@ -57,5 +57,21 @@ namespace RecipeBook.Controllers.v1
 
             return Ok();
         }
+
+        [HttpDelete("id")]
+        public IActionResult DeleteRecipe(int id)
+        {
+            try
+            {
+                _recipeRepository.DeleteRecipe(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+            }
+            
+            return Ok();
+        }
+
     }
 }
