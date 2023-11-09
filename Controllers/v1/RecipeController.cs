@@ -58,6 +58,26 @@ namespace RecipeBook.Controllers.v1
             return Ok();
         }
 
+        [HttpPut]
+        public IActionResult UpdateRecipe([FromBody] Recipe recipe)
+        {
+            _logger.LogInformation("Hello");
+            if (recipe == null)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _recipeRepository.UpdateRecipe(recipe);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception in RecipeController:\n{ex}");
+            }
+
+            return Ok();
+        }
+
         [HttpDelete("id")]
         public IActionResult DeleteRecipe(int id)
         {
