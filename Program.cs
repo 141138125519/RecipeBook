@@ -3,13 +3,16 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.OpenApi.Models;
 using RecipeBook;
 using RecipeBook.Models;
+using RecipeBook.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<RecipeBookContext>();
+builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
 
 builder.Services.AddApiVersioning(options =>
 {
