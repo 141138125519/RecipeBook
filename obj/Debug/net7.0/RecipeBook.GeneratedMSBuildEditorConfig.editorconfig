@@ -1,0 +1,45 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = RecipeBook
+build_property.RootNamespace = RecipeBook
+build_property.ProjectDir = D:\Projects\RecipeBook\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Projects\RecipeBook
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/Projects/RecipeBook/src/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = c3JjXFZpZXdzXEhvbWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/RecipeBook/src/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = c3JjXFZpZXdzXEhvbWVcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/RecipeBook/src/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = c3JjXFZpZXdzXFNoYXJlZFxFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/RecipeBook/src/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = c3JjXFZpZXdzXFNoYXJlZFxfVmFsaWRhdGlvblNjcmlwdHNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/RecipeBook/src/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = c3JjXFZpZXdzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/RecipeBook/src/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = c3JjXFZpZXdzXF9WaWV3U3RhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/RecipeBook/src/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = c3JjXFZpZXdzXFNoYXJlZFxfTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-9hicc6430y
