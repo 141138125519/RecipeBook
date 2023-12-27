@@ -10,13 +10,11 @@ namespace RecipeBook.Controllers.v1
     [ApiVersion("1.0")]
     public class RecipeController : ControllerBase
     {
-        private readonly RecipeBookContext _context;
         private readonly ILogger<RecipeController> _logger;
         private readonly IRecipeRepository _recipeRepository;
 
-        public RecipeController(RecipeBookContext context, ILogger<RecipeController> logger, IRecipeRepository recipeRepository)
+        public RecipeController(ILogger<RecipeController> logger, IRecipeRepository recipeRepository)
         {
-            _context = context;
             _logger = logger;
             _recipeRepository = recipeRepository;
 
