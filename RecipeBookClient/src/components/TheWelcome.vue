@@ -85,4 +85,12 @@ import SupportIcon from './icons/IconSupport.vue'
     us by
     <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
   </WelcomeItem>
+
+  <WelcomeItem>
+    <template #icon>
+      
+    </template>
+    <template #heading>Some new heading</template>
+    and here is some text
+  </WelcomeItem>
 </template>
