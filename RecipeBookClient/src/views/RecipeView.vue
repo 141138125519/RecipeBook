@@ -1,14 +1,22 @@
 <script>
+import RecipeItem from '../components/RecipeItem.vue'
 
 export default {
     inject: ['$recipeApi'],
+    
+    components: {
+        RecipeItem,
+    },
+
+    data() {
+        return {
+            recipes: []
+        }
+    },
+
     async mounted() {
-        console.log("trying to get recipes")
-
         let recipes = await this.$recipeApi.recipes.getAll()
-        console.log(recipes.data)
-
-        console.log("done attempt")
+        this.recipes = recipes.data
     }
 }
 
@@ -18,7 +26,10 @@ export default {
     <main>
         <h1>Recipes</h1>
         <div>
-            
+            <RecipeItem v-for="recipe in this.recipes">
+                <template #name>{{ recipe.name }}</template>
+                <template #cookingTime>{{ recipe.cookingTimeMins }}</template>
+            </RecipeItem>
         </div>
     </main>
 </template>
