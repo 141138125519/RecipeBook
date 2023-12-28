@@ -26,10 +26,7 @@ export default {
     <main>
         <h1>Recipes</h1>
         <div>
-            <RecipeItem v-for="recipe in this.recipes">
-                <template #name>{{ recipe.name }}</template>
-                <template #cookingTime>{{ recipe.cookingTimeMins }}</template>
-            </RecipeItem>
+            <RecipeItem v-for="recipe in this.recipes" :recipe="recipe"/>
         </div>
     </main>
 </template>

@@ -76,7 +76,7 @@ namespace RecipeBook.Controllers.v1
             return Ok();
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteRecipe(int id)
         {
             try

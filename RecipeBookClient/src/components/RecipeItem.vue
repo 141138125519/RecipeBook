@@ -1,13 +1,32 @@
 <template>
     <div class="recipe">
         <h3>
-            <slot name="name"></slot>
+            {{ recipe.name }}
         </h3>
         <h4>
-            Total Cooking/Prep time: <slot name="cookingTime"></slot>
+            Total Cooking/Prep time: {{ recipe.cookingTimeMins }}
         </h4>
+        <div class="actions">
+            <button @click="deleteRecipe">delete</button>
+            <button>edit</button>
+        </div>
     </div>
 </template>
+
+<script setup>
+import { inject } from 'vue'
+
+const props = defineProps(['recipe'])
+const recipeApi = inject('$recipeApi')
+
+async function deleteRecipe() {
+    console.log('delete', props.recipe.id)
+    let result = await recipeApi.recipes.delete(props.recipe.id)
+    console.log(result)
+    // emit event
+}
+
+</script>
 
 <style scoped>
 .recipe {
@@ -26,6 +45,10 @@
 .cookingTime {
     flex: 1;
     margin-left: 1rem;
+}
+
+.actions {
+    border: 1px red solid;
 }
 
 h3 {
