@@ -4,7 +4,7 @@
             <slot name="name"></slot>
         </h3>
         <h4>
-            Total time: <slot name="cookingTime"></slot>
+            Total Cooking/Prep time: <slot name="cookingTime"></slot>
         </h4>
     </div>
 </template>
