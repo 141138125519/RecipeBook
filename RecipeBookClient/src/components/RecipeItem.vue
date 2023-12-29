@@ -8,7 +8,7 @@
         </h4>
         <div class="actions">
             <button @click="deleteRecipe">delete</button>
-            <button>edit</button>
+            <button @click="editRecipe">edit</button>
         </div>
     </div>
 </template>
@@ -18,7 +18,7 @@ import { inject } from 'vue'
 
 const props = defineProps(['recipe'])
 const recipeApi = inject('$recipeApi')
-const emit = defineEmits(['deletedRecipe'])
+const emit = defineEmits(['deletedRecipe', 'editRecipe'])
 
 async function deleteRecipe() {
     console.log('delete', props.recipe.id)
@@ -26,6 +26,10 @@ async function deleteRecipe() {
     console.log(result)
     // emit event
     emit('deletedRecipe')
+}
+
+function editRecipe() {
+    emit('editRecipe')
 }
 
 </script>

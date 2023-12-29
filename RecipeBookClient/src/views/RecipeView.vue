@@ -1,7 +1,9 @@
 <script setup>
 import { inject, ref } from 'vue'
+import { useRouter, RouterLink } from 'vue-router'
 import RecipeItem from '../components/RecipeItem.vue'
 
+const router = useRouter()
 const recipeApi = inject('$recipeApi')
 
 const recipes = ref(await loadRecipes())
@@ -16,13 +18,24 @@ function deletedRecipe(recipe) {
     recipes.value.splice(i, 1)
 }
 
+function editRecipe(recipe) {
+    router.push({ path: `/recipe-edit/${recipe.id}` })
+}
+
 </script>
 
 <template>
     <main>
         <h1>Recipes</h1>
+        <RouterLink to="/recipe-edit/new">New Recipe</RouterLink>
         <TransitionGroup name="recipeList" tag="ul" class="container">
-            <RecipeItem v-for="recipe in recipes" :key="recipe" :recipe="recipe" @deletedRecipe="deletedRecipe(recipe)"/>
+            <RecipeItem
+                v-for="recipe in recipes"
+                :key="recipe"
+                :recipe="recipe"
+                @deletedRecipe="deletedRecipe(recipe)"
+                @editRecipe="editRecipe(recipe)"
+            />
         </TransitionGroup>
     </main>
 </template>
@@ -31,7 +44,8 @@ function deletedRecipe(recipe) {
 <style>
 
 .container {
-    border: 1px gray solid;
+    box-shadow: 0px 0px 10px 0px rgba(45, 45, 45, 0.75);
+    border-radius: 0.5rem;
     position: relative;
     padding: 0;
 }
@@ -39,9 +53,12 @@ function deletedRecipe(recipe) {
 .recipe {
     width: 100%;
     height: 30px;
-    /* background-color: #000000;
-    border: 1px solid #666; */
     box-sizing: border-box;
+}
+
+.recipe:hover {
+    background: rgba(100, 100, 100, 0.5);
+    border-radius: 0.5rem;
 }
 
 /* 1. declare transition */
