@@ -51,6 +51,9 @@ async function save() {
     if (recipe.id == undefined) {
         recipeApi.recipes.create(recipe)
     }
+    else {
+        recipeApi.recipes.update(recipe)
+    }
 }
 
 function checkRequired(recipe) {
