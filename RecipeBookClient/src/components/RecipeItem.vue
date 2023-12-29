@@ -18,12 +18,14 @@ import { inject } from 'vue'
 
 const props = defineProps(['recipe'])
 const recipeApi = inject('$recipeApi')
+const emit = defineEmits(['deletedRecipe'])
 
 async function deleteRecipe() {
     console.log('delete', props.recipe.id)
     let result = await recipeApi.recipes.delete(props.recipe.id)
     console.log(result)
     // emit event
+    emit('deletedRecipe')
 }
 
 </script>
@@ -38,7 +40,6 @@ async function deleteRecipe() {
 }
 
 .name {
-    border: 1px red solid;
     margin-right: 2rem;
 }
 
@@ -48,7 +49,11 @@ async function deleteRecipe() {
 }
 
 .actions {
-    border: 1px red solid;
+    margin-left: 1rem;
+}
+
+button {
+    margin: 0.1rem;
 }
 
 h3 {
