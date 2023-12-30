@@ -19,7 +19,7 @@ export default class recipeRoutes {
         return this.apiService.put(`v1/Recipe/`, recipe)
     }
 
-    delete(recipeId) {
-        return this.apiService.delete(`v1/Recipe/${recipeId}`)
+    delete(id) {
+        return this.apiService.delete(`v1/Recipe/${id}`)
     }
 }
