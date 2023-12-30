@@ -44,7 +44,7 @@ function editRecipe(recipe) {
 <style>
 
 .container {
-    box-shadow: 0px 0px 10px 0px rgba(45, 45, 45, 0.75);
+    box-shadow: 0px 0px 10px 0px var(--dracular-c-current-line);
     border-radius: 0.5rem;
     position: relative;
     padding: 0;
@@ -57,7 +57,7 @@ function editRecipe(recipe) {
 }
 
 .recipe:hover {
-    background: rgba(100, 100, 100, 0.5);
+    background: var(--dracular-c-current-line);
     border-radius: 0.5rem;
 }
 
