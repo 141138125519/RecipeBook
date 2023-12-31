@@ -35,18 +35,15 @@ namespace RecipeBook.Repositories
         {
             _logger.LogInformation("Get Recipe: {id} (If It Exists) - {time}", id, DateTime.Now);
 
-            var recipe = _context.Find<Recipe>(id);
+            var recipe = _context.Recipes.Include(r => r.Ingredients)
+                                        .FirstOrDefault(r => r.Id == id);
+
             if (recipe == null)
             {
                 return null;
             }
 
-            RecipeDTO recipeDTO = new()
-            {
-                Id = recipe.Id,
-                Name = recipe.Name,
-                CookingTimeMins = recipe.CookingTimeMins
-            };
+            var recipeDTO = _mapper.Map<RecipeDTO>(recipe);
 
             return recipeDTO;
         }
@@ -60,7 +57,7 @@ namespace RecipeBook.Repositories
                 Id = recipe.Id,
                 Name = recipe.Name,
                 CookingTimeMins = recipe.CookingTimeMins,
-                Ingredients = new List<Ingredient>()
+                Ingredients = _mapper.Map<List<Ingredient>>(recipe.Ingredients)
             };
 
             _context.Recipes.Add(newRecipe);
@@ -71,16 +68,30 @@ namespace RecipeBook.Repositories
         {
             _logger.LogInformation("Updating Recipe: {id}  - {time}", recipe.Id, DateTime.Now);
 
-            var updatedRecipe = _context.Find<Recipe>(recipe.Id);
-            if (updatedRecipe != null)
-            {
-                updatedRecipe.Name = recipe.Name;
-                updatedRecipe.CookingTimeMins = recipe.CookingTimeMins;
+            var updatedRecipe = _mapper.Map<Recipe>(recipe);
 
+            try
+            {
                 _context.Entry(updatedRecipe).State = EntityState.Modified;
+
+                foreach (var ingredient in  updatedRecipe.Ingredients)
+                {
+                    if (ingredient.Id != 0)
+                    {
+                        _context.Entry(ingredient).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        _context.Entry(ingredient).State = EntityState.Added;
+                    }
+                }
+
+                _context.SaveChanges();
             }
-            
-            _context.SaveChanges();
+            catch (Exception ex)
+            {
+                _logger.LogError("Something Went Wrong Updating Recipe:\n{ex}", ex);
+            }
         }
 
         public void DeleteRecipe(int id)

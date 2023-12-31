@@ -74,7 +74,7 @@ namespace RecipeBook.Repositories.IngredientRepository
 
         public void Delete(int id)
         {
-            _logger.LogInformation("Deleting Recipe: {id} - {time}", id, DateTime.Now);
+            _logger.LogInformation("Deleting Ingredient: {id} - {time}", id, DateTime.Now);
 
             var ingredient = _context.Ingredients.Find(id);
             if (ingredient != null)
