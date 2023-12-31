@@ -7,6 +7,7 @@ namespace RecipeBook.Models
         private ILogger<RecipeBookContext> _logger;
 
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
 
         public string DbPath { get; }
 

@@ -4,14 +4,17 @@ using Microsoft.OpenApi.Models;
 using RecipeBook;
 using RecipeBook.Models;
 using RecipeBook.Repositories;
+using RecipeBook.Repositories.IngredientRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<RecipeBookContext>();
 builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
+builder.Services.AddTransient<IIngredientRepository, IngredientRepository>();
 
 builder.Services.AddApiVersioning(options =>
 {
