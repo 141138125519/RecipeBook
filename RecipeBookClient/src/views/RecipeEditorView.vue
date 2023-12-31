@@ -5,7 +5,7 @@
         <input
             v-model.trim="recipe.name"
         >
-        <h3>Total Prep/Cooking Time:</h3>
+        <h3>Total Prep/Cooking Time (mins):</h3>
         <input
             v-model.number="recipe.cookingTimeMins"
         >
@@ -13,8 +13,11 @@
         <h3>Ingredients</h3>
         <TransitionGroup name="ingredientList" tag="ul" class="container">
             <div v-for="ingredient in ingredientList" 
-                :key="ingredient">
-                <input v-model="ingredient.name">
+                :key="ingredient"
+            >
+                <input v-model.trim="ingredient.name">
+                <input v-model.number="ingredient.quantity">
+                <input v-model.trim="ingredient.unit">
                 <button @click="markForDeletion(ingredient)">Delete</button>
             </div>
         </TransitionGroup>
@@ -113,7 +116,14 @@ function checkRequired(recipe) {
 </script>
 
 
-<style>
+<style scoped>
+.container {
+    box-shadow: 0px 0px 10px 0px var(--dracular-c-current-line);
+    border-radius: 0.5rem;
+    position: relative;
+    padding: 0;
+}
+
 
 /* 1. declare transition */
 .ingredientList-move,

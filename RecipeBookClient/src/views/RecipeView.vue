@@ -41,7 +41,7 @@ function editRecipe(recipe) {
 </template>
 
 
-<style>
+<style scoped>
 
 .container {
     box-shadow: 0px 0px 10px 0px var(--dracular-c-current-line);

@@ -43,12 +43,8 @@ namespace RecipeBook.Repositories.IngredientRepository
 
             var recipe = _context.Find<Recipe>(ingredient.RecipeId) ?? throw new Exception("Recipe Does Not Exist");
 
-            var newIngredient = new Ingredient()
-            {
-                Id = ingredient.Id,
-                Name = ingredient.Name,
-                Recipe = recipe
-            };
+            var newIngredient = _mapper.Map<Ingredient>(ingredient);
+            newIngredient.Recipe = recipe;
 
             _context.Ingredients.Add(newIngredient);
             _context.SaveChanges();
