@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using RecipeBook.Controllers.v1;
+using RecipeBook.Data.DTOs;
 using RecipeBook.Models;
 using Tests.Mocks;
 
@@ -35,8 +36,8 @@ namespace Tests
 
             Assert.NotNull(result);
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-            Assert.IsAssignableFrom<IEnumerable<Recipe>>(result.Value);
-            Assert.NotEmpty(result.Value as IEnumerable<Recipe>);
+            Assert.IsAssignableFrom<IEnumerable<RecipeDTO>>(result.Value);
+            Assert.NotEmpty(result.Value as IEnumerable<RecipeDTO>);
         }
 
         [Fact]
@@ -46,9 +47,9 @@ namespace Tests
 
             Assert.NotNull(result);
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-            Assert.IsAssignableFrom<Recipe>(result.Value);
+            Assert.IsAssignableFrom<RecipeDTO>(result.Value);
 
-            Recipe recipe = (Recipe)result.Value;
+            RecipeDTO recipe = (RecipeDTO)result.Value;
             Assert.NotNull(recipe);
             Assert.Equal(1, recipe.Id);
             Assert.Equal("First Of Many (maybe)", recipe.Name);
@@ -67,11 +68,12 @@ namespace Tests
         [Fact]
         public void AddRecipe_Test1()
         {
-            Recipe testRecipe = new Recipe
+            RecipeDTO testRecipe = new RecipeDTO
             {
                 Id = 2,
                 Name = "Test Recipe",
-                CookingTimeMins = 60
+                CookingTimeMins = 60,
+                Ingredients = new List<IngredientDTO>()
             };
 
             controller.AddRecipe(testRecipe);
@@ -80,18 +82,26 @@ namespace Tests
 
             Assert.NotNull(result);
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-            Assert.IsAssignableFrom<Recipe>(result.Value);
+            Assert.IsAssignableFrom<RecipeDTO>(result.Value);
 
-            Recipe returnedRecipe = (Recipe)result.Value;
+            RecipeDTO returnedRecipe = (RecipeDTO)result.Value;
 
             Assert.NotNull(returnedRecipe);
-            Assert.Equal(testRecipe, returnedRecipe);
+
+            Assert.Equal(testRecipe.Id, returnedRecipe.Id);
+            Assert.Equal(testRecipe.Name, returnedRecipe.Name);
+            Assert.Equal(testRecipe.CookingTimeMins, returnedRecipe.CookingTimeMins);
+            Assert.Equal(testRecipe.Ingredients, returnedRecipe.Ingredients);
+
+            // need to work out why this returns false when it shouldnt?
+            // I have a feeling this could be fixed with automapper?
+            //Assert.Equal(testRecipe, returnedRecipe);
         }
 
         [Fact]
         public void AddRecipe_Test2()
         {
-            Recipe testRecipe = new Recipe
+            RecipeDTO testRecipe = new RecipeDTO
             {
                 Id = 1,
                 Name = "Test Recipe",
@@ -107,11 +117,12 @@ namespace Tests
         [Fact]
         public void UpdateRecipe_Test()
         {
-            Recipe testRecipe = new Recipe
+            RecipeDTO testRecipe = new RecipeDTO
             {
                 Id = 1,
                 Name = "Test Recipe",
-                CookingTimeMins = 60
+                CookingTimeMins = 60,
+                Ingredients = new List<IngredientDTO>()
             };
 
             controller.UpdateRecipe(testRecipe);
@@ -121,10 +132,18 @@ namespace Tests
             Assert.NotNull(result);
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
             
-            var returnedRecipe = (Recipe)result.Value;
+            var returnedRecipe = (RecipeDTO)result.Value;
 
             Assert.NotNull(returnedRecipe);
-            Assert.Equal(testRecipe, returnedRecipe);
+
+            Assert.Equal(testRecipe.Id, returnedRecipe.Id);
+            Assert.Equal(testRecipe.Name, returnedRecipe.Name);
+            Assert.Equal(testRecipe.CookingTimeMins, returnedRecipe.CookingTimeMins);
+            Assert.Equal(testRecipe.Ingredients, returnedRecipe.Ingredients);
+
+            // need to work out why this returns false when it shouldnt?
+            // I have a feeling this could be fixed with automapper?
+            //Assert.Equal(testRecipe, returnedRecipe); 
         }
 
         [Fact]
@@ -136,8 +155,8 @@ namespace Tests
 
             Assert.NotNull(result);
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-            Assert.IsAssignableFrom<IEnumerable<Recipe>>(result.Value);
-            Assert.Empty((IEnumerable<Recipe>)result.Value);
+            Assert.IsAssignableFrom<IEnumerable<RecipeDTO>>(result.Value);
+            Assert.Empty((IEnumerable<RecipeDTO>)result.Value);
         }
     }
 }

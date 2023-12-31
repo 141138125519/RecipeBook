@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RecipeBook.Models;
 using RecipeBook.Repositories;
+using RecipeBook.Data.DTOs;
 
 namespace RecipeBook.Controllers.v1
 {
@@ -30,7 +31,7 @@ namespace RecipeBook.Controllers.v1
         [HttpGet("{id}")]
         public IActionResult GetRecipeById(int id)
         {
-            Recipe? recipe = _recipeRepository.GetIfExists(id);
+            RecipeDTO? recipe = _recipeRepository.GetIfExists(id);
 
             if (recipe == null)
             {
@@ -41,7 +42,7 @@ namespace RecipeBook.Controllers.v1
         }
 
         [HttpPost]
-        public IActionResult AddRecipe([FromBody] Recipe recipe)
+        public IActionResult AddRecipe([FromBody] RecipeDTO recipe)
         {
             if (recipe == null)
             {
@@ -57,9 +58,8 @@ namespace RecipeBook.Controllers.v1
         }
 
         [HttpPut]
-        public IActionResult UpdateRecipe([FromBody] Recipe recipe)
+        public IActionResult UpdateRecipe([FromBody] RecipeDTO recipe)
         {
-            _logger.LogInformation("Hello");
             if (recipe == null)
             {
                 return BadRequest();
@@ -70,7 +70,8 @@ namespace RecipeBook.Controllers.v1
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Exception in RecipeController:\n{ex}");
+                _logger.LogError($"Exception in Recipe Controller:\n{ex}");
+                return StatusCode(500);
             }
 
             return Ok();
@@ -86,6 +87,7 @@ namespace RecipeBook.Controllers.v1
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
+                return StatusCode(500);
             }
             
             return Ok();
