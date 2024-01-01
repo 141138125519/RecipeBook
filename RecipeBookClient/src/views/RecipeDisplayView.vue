@@ -1,5 +1,5 @@
 <template>
-    <main>
+    <main class="recipeDisplay">
         <h1>{{ recipe.name }}</h1>
         <div>
             <h3>Total Prep/Cooking Time (mins): {{ recipe.cookingTimeMins }}</h3>
@@ -45,6 +45,10 @@ let recipe = await getRecipe(route.params.id)
 
 <style scoped>
 
-
+.recipeDisplay {
+    box-shadow: 0px 0px 10px 0px var(--dracular-c-current-line);
+    border-radius: 0.5rem;
+    padding: 0 5px;
+}
 
 </style>
