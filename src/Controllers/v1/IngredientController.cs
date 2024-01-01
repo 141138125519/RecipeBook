@@ -21,14 +21,13 @@ namespace RecipeBook.Controllers.v1
             _logger = logger;
             _ingredientRepository = ingredientRepository;
 
-            _logger.LogInformation("\n Ingredient Controller Started: {0}\n", DateTime.Now);
+            _logger.LogInformation("Ingredient Controller Started: {now}", DateTime.Now);
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_ingredientRepository.GetAll());
-
         }
 
         [HttpPost]
@@ -36,7 +35,7 @@ namespace RecipeBook.Controllers.v1
         {
             _ingredientRepository.Add(ingredient);
 
-            return Ok("");
+            return Ok();
         }
 
         [HttpPut]

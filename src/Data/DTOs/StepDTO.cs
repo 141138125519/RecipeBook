@@ -8,6 +8,6 @@ namespace RecipeBook.Data.DTOs
         public int PositionInRecipe { get; set; }
         public string Instruction { get; set; } = "";
 
-        public virtual int RecipeID { get; set; }
+        public virtual int RecipeId { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace RecipeBook.Data.Profiles
         {
             CreateMap<Step, StepDTO>()
                 .ForMember(dest =>
-                    dest.RecipeID,
+                    dest.RecipeId,
                     opt => opt.MapFrom(src => src.Recipe.Id));
 
             CreateMap<StepDTO, Step>();

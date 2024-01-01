@@ -10,7 +10,7 @@ using RecipeBook.Models;
 namespace RecipeBook.Migrations
 {
     [DbContext(typeof(RecipeBookContext))]
-    [Migration("20240101104136_add_steps")]
+    [Migration("20240101111837_add_steps")]
     partial class add_steps
     {
         /// <inheritdoc />
@@ -84,7 +84,7 @@ namespace RecipeBook.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Step");
+                    b.ToTable("Steps");
                 });
 
             modelBuilder.Entity("RecipeBook.Models.Ingredient", b =>

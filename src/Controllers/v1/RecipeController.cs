@@ -19,7 +19,7 @@ namespace RecipeBook.Controllers.v1
             _logger = logger;
             _recipeRepository = recipeRepository;
 
-            _logger.LogInformation("\n Recipe Controller Started: {0}\n", DateTime.Now);
+            _logger.LogInformation("Recipe Controller Started: {now}", DateTime.Now);
         }
 
         [HttpGet("all")]

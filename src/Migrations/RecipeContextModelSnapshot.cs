@@ -81,7 +81,7 @@ namespace RecipeBook.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Step");
+                    b.ToTable("Steps");
                 });
 
             modelBuilder.Entity("RecipeBook.Models.Ingredient", b =>

@@ -11,7 +11,7 @@ namespace RecipeBook.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Step",
+                name: "Steps",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -22,9 +22,9 @@ namespace RecipeBook.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Step", x => x.Id);
+                    table.PrimaryKey("PK_Steps", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Step_Recipes_RecipeId",
+                        name: "FK_Steps_Recipes_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id",
@@ -32,8 +32,8 @@ namespace RecipeBook.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Step_RecipeId",
-                table: "Step",
+                name: "IX_Steps_RecipeId",
+                table: "Steps",
                 column: "RecipeId");
         }
 
@@ -41,7 +41,7 @@ namespace RecipeBook.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Step");
+                name: "Steps");
         }
     }
 }

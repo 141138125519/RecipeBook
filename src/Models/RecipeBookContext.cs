@@ -8,6 +8,7 @@ namespace RecipeBook.Models
 
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<Step> Steps { get; set; }
 
         public string DbPath { get; }
 
@@ -15,7 +16,7 @@ namespace RecipeBook.Models
         {
             _logger = logger;
 
-            _logger.LogInformation($"\n Recipe Context Started {0} \n", DateTime.Now);
+            _logger.LogInformation("Recipe Context Started {now}", DateTime.Now);
 
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
