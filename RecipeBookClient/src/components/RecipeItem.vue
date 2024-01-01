@@ -6,10 +6,10 @@
         <h3>
             Total time: {{ recipe.cookingTimeMins }}
         </h3>
-        <div @click="deleteRecipe">
+        <div @click.stop="deleteRecipe">
             <img alt="delete" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
         </div>
-        <div @click="editRecipe">
+        <div @click.stop="editRecipe">
             <img alt="edit" class="logo" src="@/assets/pencil.svg" width="25" height="25"/>
         </div>
     </div>
