@@ -199,6 +199,7 @@ function checkRequired(recipe) {
 }
 
 .stepInstruction {
+    resize: vertical;
     flex-grow: 4;
 }
 

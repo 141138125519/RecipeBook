@@ -1,10 +1,10 @@
 <template>
     <div class="recipe">
-        <h3>
+        <h3 class="name">
             {{ recipe.name }}
         </h3>
         <h3>
-            Total Cooking/Prep time: {{ recipe.cookingTimeMins }}
+            Total time: {{ recipe.cookingTimeMins }}
         </h3>
         <div @click="deleteRecipe">
             <img alt="delete" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
@@ -43,18 +43,15 @@ function editRecipe() {
     place-items: center;
     place-content: center;
     width: 100%;
+    padding: 0 10px;
 }
 
 .logo {
     display: block;
 }
 
-button {
-    margin: 0.1rem;
-}
-
-h3 {
-    margin-right: 1rem;
+.name {
+    flex-grow: 1;
 }
 
 </style>
