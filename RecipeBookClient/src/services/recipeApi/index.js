@@ -2,6 +2,7 @@
 import axios from "axios";
 import recipeRoutes from "./recipeRoutes";
 import ingredientRoutes from "./ingredientRoutes";
+import stepRoutes from "./stepRoutes";
 
 export default class apiService {
     constructor() {
@@ -10,6 +11,7 @@ export default class apiService {
 
         this.recipes = new recipeRoutes(this.apiService)
         this.ingredients = new ingredientRoutes(this.apiService)
+        this.steps = new stepRoutes(this.apiService)
     }
 
     // use auth
