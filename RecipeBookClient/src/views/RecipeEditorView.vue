@@ -18,10 +18,21 @@
                 <input v-model.trim="ingredient.name">
                 <input v-model.number="ingredient.quantity">
                 <input v-model.trim="ingredient.unit">
-                <button @click="markForDeletion(ingredient)">Delete</button>
+                <button @click="markIngredientForDeletion(ingredient)">Delete</button>
             </div>
         </TransitionGroup>
         <button @click="newIngredient">Add Ingredient</button>
+        <h3>Steps</h3>
+        <TransitionGroup name="stepList" tag="ul" class="container">
+            <div v-for="step in stepList" 
+                :key="step"
+            >
+                <input v-model.number="step.positionInRecipe">
+                <textarea v-model.trim="step.instruction"></textarea>
+                <button @click="markStepForDeletion(step)">Delete</button>
+            </div>
+        </TransitionGroup>
+        <button @click="newStep">Add Step</button>
         <button @click="save">Save</button>
     </main>
 </template>
@@ -47,6 +58,8 @@ function title() {
 let recipe = {}
 let ingredientList = {}
 let ingredientsToDelete = []
+let stepList = {}
+let stepsToDelete = []
 
 async function getRecipe(id) {
     let result = await recipeApi.recipes.get(id)
@@ -59,12 +72,14 @@ if (route.params.id != 'new') {
 else
 {
     recipe.ingredients = []
+    recipe.steps = []
 }
 ingredientList = ref(recipe.ingredients)
+stepList = ref(recipe.steps)
 
 async function save() {
     let missingFields = checkRequired(recipe)
-    console.log(recipe)
+
     if (missingFields.length > 0) {
         alert(`Not All Required Fields Are Present:\n\n${missingFields.join('\n')}`)
         return
@@ -75,6 +90,7 @@ async function save() {
     else {
         recipeApi.recipes.update(recipe)
         deleteIngredients()
+        deleteSteps()
     }
 }
 
@@ -86,15 +102,34 @@ function deleteIngredients() {
     });
 }
 
+function deleteSteps() {
+    stepsToDelete.forEach(step => {
+        if (step.id != undefined) {
+            recipeApi.steps.delete(step.id)
+        }
+    });
+}
+
 function newIngredient() {
     ingredientList.value.push({name: "new ingredient", recipeId: recipe.id})
 }
 
-function markForDeletion(ingredient) {
+function newStep() {
+    stepList.value.push({positionInRecipe: stepList.value.length, recipeId: recipe.id})
+}
+
+function markIngredientForDeletion(ingredient) {
     ingredientsToDelete.push(ingredient)
 
     const i = ingredientList.value.indexOf(ingredient)
     ingredientList.value.splice(i, 1)
+}
+
+function markStepForDeletion(step) {
+    stepsToDelete.push(step)
+
+    const i = stepList.value.indexOf(step)
+    stepList.value.splice(i, 1)
 }
 
 function checkRequired(recipe) {
@@ -108,6 +143,9 @@ function checkRequired(recipe) {
     }
     if (recipe.ingredients == undefined) {
         missingFields.push('Ingredients')
+    }
+    if (recipe.steps == undefined) {
+        missingFields.push('Steps')
     }
 
     return missingFields
@@ -126,6 +164,9 @@ function checkRequired(recipe) {
 
 
 /* 1. declare transition */
+.stepList-move,
+.stepList-enter-active,
+.stepList-leave-active,
 .ingredientList-move,
 .ingredientList-enter-active,
 .ingredientList-leave-active {
@@ -133,6 +174,8 @@ function checkRequired(recipe) {
 }
 
 /* 2. declare enter from and leave to state */
+.stepList-enter-from,
+.stepList-leave-to,
 .ingredientList-enter-from,
 .ingredientList-leave-to {
     opacity: 0;
@@ -141,6 +184,7 @@ function checkRequired(recipe) {
 
 /* 3. ensure leaving items are taken out of layout flow so that moving
       animations can be calculated correctly. */
+.stepList-leave-active,
 .ingredientList-leave-active {
     position: absolute;
 }

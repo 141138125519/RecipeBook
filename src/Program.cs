@@ -5,6 +5,7 @@ using RecipeBook;
 using RecipeBook.Models;
 using RecipeBook.Repositories;
 using RecipeBook.Repositories.IngredientRepository;
+using RecipeBook.Repositories.StepRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<RecipeBookContext>();
 builder.Services.AddTransient<IRecipeRepository, RecipeRepository>();
 builder.Services.AddTransient<IIngredientRepository, IngredientRepository>();
+builder.Services.AddTransient<IStepRepository, StepRepository>();
 
 builder.Services.AddApiVersioning(options =>
 {

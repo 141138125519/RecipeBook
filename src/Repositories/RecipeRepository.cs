@@ -25,7 +25,9 @@ namespace RecipeBook.Repositories
         {
             _logger.LogInformation("Getting All Recipes - {time}", DateTime.Now);
 
-            var allRecipes = _context.Recipes.Include(r => r.Ingredients).ToList();
+            var allRecipes = _context.Recipes.Include(r => r.Ingredients)
+                                        .Include(r => r.Steps)
+                                        .ToList();
             var allRecipeDTOs = _mapper.Map<List<RecipeDTO>>(allRecipes);
 
             return allRecipeDTOs;
@@ -36,6 +38,7 @@ namespace RecipeBook.Repositories
             _logger.LogInformation("Get Recipe: {id} (If It Exists) - {time}", id, DateTime.Now);
 
             var recipe = _context.Recipes.Include(r => r.Ingredients)
+                                        .Include(r => r.Steps)
                                         .FirstOrDefault(r => r.Id == id);
 
             if (recipe == null)
@@ -83,6 +86,18 @@ namespace RecipeBook.Repositories
                     else
                     {
                         _context.Entry(ingredient).State = EntityState.Added;
+                    }
+                }
+
+                foreach (var step in updatedRecipe.Steps)
+                {
+                    if (step.Id != 0)
+                    {
+                        _context.Entry(step).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        _context.Entry(step).State = EntityState.Added;
                     }
                 }
 
