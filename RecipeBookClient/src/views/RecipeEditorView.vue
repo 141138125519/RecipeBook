@@ -52,9 +52,10 @@
 
 <script setup>
 import { inject, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute,useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const recipeApi = inject('$recipeApi')
 
 function title() {
@@ -97,13 +98,26 @@ async function save() {
         alert(`Not All Required Fields Are Present:\n\n${missingFields.join('\n')}`)
         return
     }
+
+    let result = {}
+
     if (recipe.id == undefined) {
-        recipeApi.recipes.create(recipe)
+        result = await recipeApi.recipes.create(recipe)
     }
     else {
-        recipeApi.recipes.update(recipe)
+        result = await recipeApi.recipes.update(recipe)
         deleteIngredients()
         deleteSteps()
+    }
+    
+    if (result.status == 200) {
+        alert("Recipe Saved")
+        // Should we really navigate away on saving?
+        router.push({ path: `/recipes` })
+    }
+    else
+    {
+        alert("Saving Recipe Failed")
     }
 }
 
