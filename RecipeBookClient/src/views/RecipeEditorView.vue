@@ -23,7 +23,7 @@
                     <input v-model.number="ingredient.quantity" placeholder="Quantity" class="smallItem">
                     <input v-model.trim="ingredient.unit" placeholder="Unit" class="smallItem">
                     <div @click="markIngredientForDeletion(ingredient)">
-                        <img alt="Cake" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
+                        <img alt="delete" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
                     </div>
                 </div>
             </TransitionGroup>
@@ -40,7 +40,7 @@
                     <input v-model.number="step.positionInRecipe" placeholder="Position in recipe" class="smallItem">
                     <textarea v-model.trim="step.instruction" placeholder="Instruction" class="stepInstruction"></textarea>
                     <div @click="markStepForDeletion(step)">
-                        <img alt="Cake" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
+                        <img alt="delete" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
                     </div>
                 </div>
             </TransitionGroup>

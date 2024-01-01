@@ -3,12 +3,14 @@
         <h3>
             {{ recipe.name }}
         </h3>
-        <h4>
+        <h3>
             Total Cooking/Prep time: {{ recipe.cookingTimeMins }}
-        </h4>
-        <div class="actions">
-            <button @click="deleteRecipe">delete</button>
-            <button @click="editRecipe">edit</button>
+        </h3>
+        <div @click="deleteRecipe">
+            <img alt="delete" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
+        </div>
+        <div @click="editRecipe">
+            <img alt="edit" class="logo" src="@/assets/pencil.svg" width="25" height="25"/>
         </div>
     </div>
 </template>
@@ -43,17 +45,8 @@ function editRecipe() {
     width: 100%;
 }
 
-.name {
-    margin-right: 2rem;
-}
-
-.cookingTime {
-    flex: 1;
-    margin-left: 1rem;
-}
-
-.actions {
-    margin-left: 1rem;
+.logo {
+    display: block;
 }
 
 button {
@@ -62,7 +55,6 @@ button {
 
 h3 {
     margin-right: 1rem;
-    margin-bottom: 0.4rem;
 }
 
 </style>
