@@ -60,7 +60,8 @@ namespace RecipeBook.Repositories
                 Id = recipe.Id,
                 Name = recipe.Name,
                 CookingTimeMins = recipe.CookingTimeMins,
-                Ingredients = _mapper.Map<List<Ingredient>>(recipe.Ingredients)
+                Ingredients = _mapper.Map<List<Ingredient>>(recipe.Ingredients),
+                Steps = _mapper.Map<List<Step>>(recipe.Steps)
             };
 
             _context.Recipes.Add(newRecipe);
