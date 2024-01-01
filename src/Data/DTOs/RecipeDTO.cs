@@ -7,5 +7,6 @@
         public int CookingTimeMins { get; set; }
 
         public ICollection<IngredientDTO> Ingredients { get; set; }
+        public ICollection<StepDTO> Steps { get; set; }
     }
 }
