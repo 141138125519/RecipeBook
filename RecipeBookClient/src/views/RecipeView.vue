@@ -22,6 +22,10 @@ function editRecipe(recipe) {
     router.push({ path: `/recipe-edit/${recipe.id}` })
 }
 
+function selectRecipe(recipe) {
+    router.push({ path: `/recipe/${recipe.id}` })
+}
+
 </script>
 
 <template>
@@ -35,6 +39,7 @@ function editRecipe(recipe) {
                 :recipe="recipe"
                 @deletedRecipe="deletedRecipe(recipe)"
                 @editRecipe="editRecipe(recipe)"
+                @click="selectRecipe(recipe)"
             />
         </TransitionGroup>
     </main>
