@@ -1,38 +1,51 @@
 <template>
     <main>
         <h1>{{ title() }}</h1>
-        <h3>Recipe Title</h3>
-        <input
-            v-model.trim="recipe.name"
-        >
-        <h3>Total Prep/Cooking Time (mins):</h3>
-        <input
-            v-model.number="recipe.cookingTimeMins"
-        >
-        <!-- <IngredientsEdit :ingredients="recipe.ingredients"/> -->
-        <h3>Ingredients</h3>
-        <TransitionGroup name="ingredientList" tag="ul" class="container">
-            <div v-for="ingredient in ingredientList" 
-                :key="ingredient"
+        <div class="card">
+            <h3>Recipe Title</h3>
+            <input
+                v-model.trim="recipe.name"
             >
-                <input v-model.trim="ingredient.name">
-                <input v-model.number="ingredient.quantity">
-                <input v-model.trim="ingredient.unit">
-                <button @click="markIngredientForDeletion(ingredient)">Delete</button>
-            </div>
-        </TransitionGroup>
-        <button @click="newIngredient">Add Ingredient</button>
-        <h3>Steps</h3>
-        <TransitionGroup name="stepList" tag="ul" class="container">
-            <div v-for="step in stepList" 
-                :key="step"
+            <h3>Total Prep/Cooking Time (mins):</h3>
+            <input
+                v-model.number="recipe.cookingTimeMins"
             >
-                <input v-model.number="step.positionInRecipe">
-                <textarea v-model.trim="step.instruction"></textarea>
-                <button @click="markStepForDeletion(step)">Delete</button>
-            </div>
-        </TransitionGroup>
-        <button @click="newStep">Add Step</button>
+        </div>
+        
+        <div class="card">
+            <h3>Ingredients</h3>
+            <TransitionGroup name="ingredientList" tag="ul" class="container">
+                <div v-for="ingredient in ingredientList"
+                    :key="ingredient"
+                    class="ingredient"
+                >
+                    <input v-model.trim="ingredient.name" placeholder="Ingredient" class="ingredientName">
+                    <input v-model.number="ingredient.quantity" placeholder="Quantity" class="smallItem">
+                    <input v-model.trim="ingredient.unit" placeholder="Unit" class="smallItem">
+                    <div @click="markIngredientForDeletion(ingredient)">
+                        <img alt="Cake" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
+                    </div>
+                </div>
+            </TransitionGroup>
+            <button @click="newIngredient">Add Ingredient</button>
+        </div>
+
+        <div class="card">
+            <h3>Steps</h3>
+            <TransitionGroup name="stepList" tag="ul" class="container">
+                <div v-for="step in stepList"
+                    :key="step"
+                    class="step"
+                >
+                    <input v-model.number="step.positionInRecipe" placeholder="Position in recipe" class="smallItem">
+                    <textarea v-model.trim="step.instruction" placeholder="Instruction" class="stepInstruction"></textarea>
+                    <div @click="markStepForDeletion(step)">
+                        <img alt="Cake" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
+                    </div>
+                </div>
+            </TransitionGroup>
+            <button @click="newStep">Add Step</button>
+        </div>
         <button @click="save">Save</button>
     </main>
 </template>
@@ -111,7 +124,7 @@ function deleteSteps() {
 }
 
 function newIngredient() {
-    ingredientList.value.push({name: "new ingredient", recipeId: recipe.id})
+    ingredientList.value.push({name: "", recipeId: recipe.id})
 }
 
 function newStep() {
@@ -155,13 +168,44 @@ function checkRequired(recipe) {
 
 
 <style scoped>
-.container {
+.card {
     box-shadow: 0px 0px 10px 0px var(--dracular-c-current-line);
+    border-radius: 0.5rem;
+    display: grid;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.container {
     border-radius: 0.5rem;
     position: relative;
     padding: 0;
 }
 
+.ingredient {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+}
+
+.ingredientName {
+    flex-grow: 4;
+}
+
+.step {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+}
+
+.stepInstruction {
+    flex-grow: 4;
+}
+
+/* Could do with a better name? */
+.smallItem {
+    max-width: 50px;
+}
 
 /* 1. declare transition */
 .stepList-move,
