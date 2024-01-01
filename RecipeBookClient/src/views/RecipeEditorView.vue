@@ -28,7 +28,7 @@
                 :key="step"
             >
                 <input v-model.number="step.positionInRecipe">
-                <input v-model.number="step.instruction">
+                <textarea v-model.trim="step.instruction"></textarea>
                 <button @click="markStepForDeletion(step)">Delete</button>
             </div>
         </TransitionGroup>
@@ -79,7 +79,7 @@ stepList = ref(recipe.steps)
 
 async function save() {
     let missingFields = checkRequired(recipe)
-    console.log(recipe)
+
     if (missingFields.length > 0) {
         alert(`Not All Required Fields Are Present:\n\n${missingFields.join('\n')}`)
         return
