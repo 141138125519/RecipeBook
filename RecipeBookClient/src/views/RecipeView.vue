@@ -47,12 +47,12 @@ function editRecipe(recipe) {
     box-shadow: 0px 0px 10px 0px var(--dracular-c-current-line);
     border-radius: 0.5rem;
     position: relative;
+    margin: 10px 0;
     padding: 0;
 }
 
 .recipe {
     width: 100%;
-    height: 30px;
     box-sizing: border-box;
 }
 

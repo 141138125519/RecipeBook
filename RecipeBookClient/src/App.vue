@@ -6,7 +6,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Cake" class="logo" src="@/assets/cake.svg" width="125" height="125" fill="#121212"/>
+    <img alt="Cake" class="logo" src="@/assets/cake.svg" width="125" height="125"/>
 
     <div class="wrapper">
       <HelloWorld msg="Recipe Book" />
