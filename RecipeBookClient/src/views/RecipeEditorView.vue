@@ -37,7 +37,7 @@
                     :key="step"
                     class="step"
                 >
-                    <input v-model.number="step.positionInRecipe" placeholder="Position in recipe" class="smallItem">
+                    <input v-model.number="step.positionInRecipe" placeholder="Position in recipe" class="smallItem" @input="updateStepOrder(step)">
                     <textarea v-model.trim="step.instruction" placeholder="Instruction" class="stepInstruction"></textarea>
                     <div @click="markStepForDeletion(step)">
                         <img alt="delete" class="logo" src="@/assets/delete.svg" width="25" height="25"/>
@@ -90,6 +90,7 @@ else
 }
 ingredientList = ref(recipe.ingredients)
 stepList = ref(recipe.steps)
+stepList.value.sort(function(a, b){return a.positionInRecipe - b.positionInRecipe})
 
 async function save() {
     let missingFields = checkRequired(recipe)
@@ -98,6 +99,10 @@ async function save() {
         alert(`Not All Required Fields Are Present:\n\n${missingFields.join('\n')}`)
         return
     }
+
+    // reset step order to 0 index
+    stepList.value[0].positionInRecipe = 0
+    updateStepOrder(stepList.value[0])
 
     let result = {}
 
@@ -157,6 +162,18 @@ function markStepForDeletion(step) {
 
     const i = stepList.value.indexOf(step)
     stepList.value.splice(i, 1)
+}
+
+function updateStepOrder(step) {
+    let nextPos = step.positionInRecipe + 1
+    stepList.value.forEach(s => {
+        if (s != step && s.positionInRecipe >= step.positionInRecipe) {
+            s.positionInRecipe = nextPos
+            nextPos++
+        }
+    })
+
+    stepList.value.sort(function(a, b){return a.positionInRecipe - b.positionInRecipe})
 }
 
 function checkRequired(recipe) {
