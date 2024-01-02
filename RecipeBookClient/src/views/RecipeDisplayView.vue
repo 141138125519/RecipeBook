@@ -40,6 +40,7 @@ async function getRecipe(id) {
 }
 
 let recipe = await getRecipe(route.params.id)
+recipe.steps.sort(function(a, b){return a.positionInRecipe - b.positionInRecipe})
 
 </script>
 
